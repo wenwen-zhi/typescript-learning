@@ -31,8 +31,9 @@ class 类名 {
 
 ```typescript
     class Person{
-        name: string;
-        age: number;
+        readonly name: string; //readonly是只读属性
+        age: number; //实例属性
+        static sex: string = '男' //类属性，以static开头
     
         constructor(name: string, age: number){
             this.name = name;
@@ -50,6 +51,8 @@ class 类名 {
 ```typescript
 const p = new Person('孙悟空', 18);
 p.sayHello();
+console.log(p.age) //实例属性需要创建对象来访问
+console.log(Person.sex) //类属性不需要用实例来调用
 ```
 
 ### 构造函数
@@ -61,15 +64,23 @@ p.sayHello();
 例如：
 
 ```typescript
-class C{
+class Dog{
     name: string;
     age: number
 
-    constructor(name: string, age: number) {
-        this.name = name;
+    constructor(name: string, age: number) {  //构造函数会在对象创建时调用
+        this.name = name; //this指向当前实例
         this.age = age;
     }
+    bark(){
+        console.log(this.name)
+        console.log("汪汪汪")
+    }
 }
+
+const dog1=new Dog('小黑'，'2')
+const dog2=new Dog('小白'，'4')
+dog1.bark() //小黑汪汪汪，this指向调用的对象
 ```
 
 同时也可以直接将属性定义在构造函数中：
@@ -84,21 +95,23 @@ class C {
 上面两种定义方法是完全相同的！
 
 **注2：子类继承父类时，必须调用父类的构造方法（如果子类中也定义了构造方法）！**
+通过继承，可以将多个类中共有的代码写在父类中
 
 例如：
 
 ```typescript
-class A {
+class Animal {
+    
     protected num: number;
     constructor(num: number) {
         this.num = num;
     }
 }
 
-class X extends A {
+class Dog extends Animal {1
     protected name: string;
-    constructor(num: number, name: string) {
-        super(num);
+    constructor(num: number, name: string) { //如果在子类中写了构造函数，在子类构造函数中必须对父类的构造函数进行调用
+        super(num); //super表示当前类的父类
         this.name = name;
     }
 }
@@ -348,7 +361,7 @@ dog.bark();
 
 ### 抽象类（abstract class）
 
-抽象类是专门用来被其他类所继承的类，它只能被其他类所继承不能用来创建实例
+抽象类是专门用来被其他类所继承的类，它只能被其他类所继承不能用来创建实例（天生只能当爸爸）
 
 ```typescript
 abstract class Animal{
@@ -365,4 +378,4 @@ class Dog extends Animals{
 }
 ```
 
-使用abstract开头的方法叫做抽象方法，抽象方法没有方法体只能定义在抽象类中，继承抽象类时抽象方法必须要实现;
+使用abstract开头的方法叫做抽象方法，抽象方法没有方法体只能定义在抽象类中，子类必须对抽象方法重写，继承抽象类时抽象方法必须要实现;
