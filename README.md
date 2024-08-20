@@ -80,6 +80,8 @@ class MyClass<T>{
       this.prop = prop;
   }
 }
+
+const mc = new MyClass<string>('孙悟空')
 ```
 
 ### 泛型继承
