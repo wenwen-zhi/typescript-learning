@@ -107,7 +107,6 @@ class X extends A {
 如果在X类中不调用`super`将会报错！
 
 ### 封装
-
 对象实质上就是属性和方法的容器，它的主要作用就是存储属性和方法，这就是所谓的封装
 
 默认情况下，对象的属性是可以任意的修改的，为了确保数据的安全性，在TS中可以对属性的权限进行设置
@@ -124,7 +123,7 @@ class X extends A {
 
     - public（默认值），可以在类、子类和对象中修改
     - protected ，可以在类、子类中修改
-    - private ，可以在类中修改
+    - private ，可以在类中修改，比如在constructor中可以访问
 
 示例：
 
@@ -222,7 +221,7 @@ p.name = '猪八戒';// 不能修改
 
 我们可以在类中定义一组读取、设置属性的方法，这种对属性读取或设置的属性被称为属性的存取器
 
-读取属性的方法叫做setter方法，设置属性的方法叫做getter方法
+读取属性的方法叫做setter方法，设置属性的方法叫做getter方法，也称为属性存取器
 
 示例：
 
@@ -238,6 +237,10 @@ class Person{
         return this._name;
     }
 
+    setName(name: string){
+        this._name = name;
+    }
+
     set name(name: string){
         this._name = name;
     }
@@ -248,11 +251,11 @@ const p1 = new Person('孙悟空');
 // 实际通过调用getter方法读取name属性
 console.log(p1.name);
 // 实际通过调用setter方法修改name属性 
-p1.name = '猪八戒'; 
+p1.setName ('猪八戒');
+p1.name ('孙悟空');
 ```
 
 ### 静态属性
-
 静态属性（方法），也称为类属性。使用静态属性无需创建实例，通过类即可直接使用
 
 静态属性（方法）使用static开头
