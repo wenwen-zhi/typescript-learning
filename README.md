@@ -123,8 +123,8 @@ class X extends A {
   - TS中属性具有三种修饰符：
 
     - public（默认值），可以在类、子类和对象中修改
-    - protected ，可以在类、子类中修改
-    - private ，可以在类中修改
+    - protected ，可以在类、子类中修改（访问）
+    - private ，可以在类中修改（访问）
 
 示例：
 
